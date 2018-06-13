@@ -45,6 +45,7 @@
 
         // the menus (<ul>´s)
         this.menus = [].slice.call(this.el.querySelectorAll('.menu__level'));
+        this.wrapper = this.el.querySelector('.menu__wrap');
 
         // index of current menu
         // Each level is actually a different menu so 0 is root, 1 is sub-1, 2 sub-2, etc.
@@ -119,6 +120,12 @@
                 }
             });
         });
+
+        /* Resize wrapper to current menu's height */
+        var current = this.menus.find(function(menuEl) {return menuEl.classList.contains('menu__level--current');});
+        if (current) {
+            self._resizeFor(current);
+        }
 
         /* For each MENU, find their parent MENU */
         this.menus.forEach(function(menuEl, pos) {
@@ -264,6 +271,13 @@
         }
     };
 
+    MLMenu.prototype._resizeFor = function(menuEl) {
+        var menuHeight = menuEl.offsetHeight;
+
+        // Apply new height to wrapper element
+        this.wrapper.style.height = menuHeight + 'px';
+    };
+
     MLMenu.prototype._menuIn = function(nextMenuEl, clickPosition) {
         var self = this,
             // the current menu
@@ -275,6 +289,8 @@
             nextMenu = this.menusArr[nextMenuIdx],
             nextMenuItems = nextMenu.menuItems,
             nextMenuItemsTotal = nextMenuItems.length;
+
+        self._resizeFor(nextMenuEl);
 
         // slide in next menu items - first, set the delays for the items
         nextMenuItems.forEach(function(item, pos) {
