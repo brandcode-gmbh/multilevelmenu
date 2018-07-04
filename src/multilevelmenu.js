@@ -121,12 +121,6 @@
             });
         });
 
-        /* Resize wrapper to current menu's height */
-        var current = this.menus.find(function(menuEl) {return menuEl.classList.contains('menu__level--current');});
-        if (current) {
-            self._resizeFor(current);
-        }
-
         /* For each MENU, find their parent MENU */
         this.menus.forEach(function(menuEl, pos) {
             var menu_x = menuEl.getAttribute('data-menu');
@@ -160,6 +154,12 @@
                 this._addBreadcrumb(self.current_menu);
                 this.breadCrumbs = true;
             }
+        }
+
+        /* Resize wrapper to current menu's height */
+        var current = this.menus.find(function(menuEl) {return menuEl.classList.contains('menu__level--current');});
+        if (current) {
+            self._resizeFor(current);
         }
 
         // create back button
@@ -275,7 +275,7 @@
         var menuHeight = menuEl.offsetHeight;
 
         // Apply new height to wrapper element
-        this.wrapper.style.height = menuHeight + 'px';
+        this.wrapper.style.minHeight = menuHeight + 'px';
     };
 
     MLMenu.prototype._menuIn = function(nextMenuEl, clickPosition) {
