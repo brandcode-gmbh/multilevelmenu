@@ -159,10 +159,11 @@
         }
 
         /* Resize wrapper to current menu's height */
-        var current = this.menus.find(function(menuEl) {return menuEl.classList.contains('menu__level--current');});
-        if (current) {
-            self._resizeFor(current);
-        }
+        this.menus.forEach(function(menuEl) {
+            if (menuEl.classList.contains('menu__level--current')) {
+                self._resizeFor(menuEl);
+            }
+        });
 
         // create back button
         if (this.options.backCtrl) {
