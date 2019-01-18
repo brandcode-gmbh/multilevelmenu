@@ -146,7 +146,7 @@
             this._addBreadcrumb(0);
 
             // Need to add breadcrumbs for all parents of current submenu
-            if (self.menusArr[self.current_menu].backIdx !== 0 && self.current_menu !== 0) {
+            if (self.current_menu && self.menusArr[self.current_menu].backIdx !== 0 && self.current_menu !== 0) {
                 this._crawlCrumbs(self.menusArr[self.current_menu].backIdx, self.menusArr);
                 this.breadCrumbs = true;
             }
