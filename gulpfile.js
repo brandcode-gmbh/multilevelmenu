@@ -4,6 +4,8 @@ var gulp            = require('gulp'),
     eslint          = require('gulp-eslint'),
     lintspaces      = require('gulp-lintspaces'),
     rename          = require('gulp-rename'),
+    sass            = require('gulp-sass'),
+    tildeImporter   = require('node-sass-tilde-importer'),
     uglify          = require('gulp-uglify'),
     autoprefixer    = require('gulp-autoprefixer'),
     cleanCSS        = require('gulp-clean-css');
@@ -14,18 +16,19 @@ gulp.task('csslint', function() {
         .pipe(csslint.formatter());
 });
 
-gulp.task('copy:css', gulp.series('csslint', function() {
-    return gulp.src('src/multilevelmenu.css')
-        .pipe(gulp.dest('docs/css/'));
-}));
-
-gulp.task('minify:css', gulp.series('copy:css', function() {
-    return gulp.src('src/multilevelmenu.css')
+gulp.task('build:css', function() {
+    return gulp.src('src/multilevelmenu.scss')
+        .pipe(sass({
+            importer: tildeImporter,
+            outputStyle: 'compressed'
+        }))
+        .on('error', sass.logError)
         .pipe(autoprefixer())
         .pipe(cleanCSS())
+        .pipe(gulp.dest('docs/css/'))
         .pipe(rename('multilevelmenu.min.css'))
         .pipe(gulp.dest('dist/'));
-}));
+});
 
 gulp.task('editorconfig', function() {
     return gulp.src('src/multilevelmenu.js')
@@ -52,7 +55,7 @@ gulp.task('minify:js', gulp.series('copy:js', function() {
         .pipe(gulp.dest('dist/'));
 }));
 
-gulp.task('build', gulp.parallel('minify:css', 'minify:js'));
+gulp.task('build', gulp.parallel('build:css', 'minify:js'));
 
 gulp.task('watch', function(done) {
     gulp.watch(['docs/*.html','src/**/*'], gulp.series('build'));
