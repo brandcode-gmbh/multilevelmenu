@@ -76,6 +76,8 @@
         breadcrumbsCtrl : true,
         // initial breadcrumb text
         initialBreadcrumb : 'all',
+        // CSS class for the initial breadcrumb element
+        initialBreadcrumbClass: '',
         // show back button
         backCtrl : true,
         // back button contents
@@ -362,6 +364,7 @@
         var bc = document.createElement('a');
         bc.href = '#'; // make it focusable
         bc.innerHTML = idx ? this.menusArr[idx].name : this.options.initialBreadcrumb;
+        bc.className = idx ? '' : this.options.initialBreadcrumbClass;
         this.breadcrumbsCtrl.appendChild(bc);
 
         var self = this;
