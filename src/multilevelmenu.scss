@@ -69,7 +69,7 @@
 .menu__link:focus,
 .menu__link[data-submenu]:hover::after,
 .menu__link[data-submenu]:focus::after {
-    color: #5c5edc;
+    color: $menu-color-active;
 }
 
 .menu__link--current::before {
