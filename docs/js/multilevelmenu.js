@@ -194,8 +194,9 @@
     for (var i = 0, len = this.menusArr.length; i < len; ++i) {
       this.menusArr[i].menuItems.forEach(function (item, pos) {
         item.querySelector('a').addEventListener('click', function (ev) {
-          var submenu = ev.target.getAttribute('data-submenu'),
-            itemName = ev.target.innerHTML,
+          var link = ev.target.closest('a'),
+            submenu = link.getAttribute('data-submenu'),
+            itemName = link.innerHTML,
             subMenuEl = self.el.querySelector('ul[data-menu="' + submenu + '"]');
 
           // check if there's a sub menu for this item
@@ -205,11 +206,8 @@
             self._openSubMenu(subMenuEl, pos, itemName);
           } else {
             // add class current
-            var currentlink = self.el.querySelector('.menu__link--current');
-            if (currentlink) {
-              self.el.querySelector('.menu__link--current').classList.remove('menu__link--current');
-            }
-            ev.target.classList.add('menu__link--current');
+            self.el.querySelector('.menu__link--current').classList.remove('menu__link--current');
+            link.classList.add('menu__link--current');
 
             // callback
             self.options.onItemClick(ev, itemName);
