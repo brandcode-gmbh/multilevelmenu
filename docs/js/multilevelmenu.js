@@ -84,6 +84,8 @@
     initialBreadcrumbClass: '',
     // show back button
     backCtrl: true,
+    // back button label
+    backCtrlLabel: 'Go back',
     // back button contents
     backCtrlContent: '<span class="icon icon--arrow-left"></span>',
     // delay between each menu item sliding animation
@@ -181,7 +183,7 @@
       } else {
         this.backCtrl.className = 'menu__back menu__back--hidden';
       }
-      this.backCtrl.setAttribute('aria-label', 'Go back');
+      this.backCtrl.setAttribute('aria-label', this.options.backCtrlLabel);
       this.backCtrl.innerHTML = this.options.backCtrlContent;
       this.el.insertBefore(this.backCtrl, this.wrapper);
     }
