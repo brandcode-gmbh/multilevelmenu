@@ -76,6 +76,8 @@
   MLMenu.prototype.options = {
     // show breadcrumbs
     breadcrumbsCtrl: true,
+    // breadcrumbs label
+    breadcrumbsLabel: 'You are here',
     // initial breadcrumb text
     initialBreadcrumb: 'all',
     // CSS class for the initial breadcrumb element
@@ -146,7 +148,7 @@
     if (self.options.breadcrumbsCtrl) {
       this.breadcrumbsCtrl = document.createElement('nav');
       this.breadcrumbsCtrl.className = 'menu__breadcrumbs';
-      this.breadcrumbsCtrl.setAttribute('aria-label', 'You are here');
+      this.breadcrumbsCtrl.setAttribute('aria-label', self.options.breadcrumbsLabel);
       this.el.insertBefore(this.breadcrumbsCtrl, this.el.firstChild);
       // add initial breadcrumb
       this._addBreadcrumb(0);
