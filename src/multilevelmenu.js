@@ -197,7 +197,13 @@
 
     for (var i = 0, len = this.menusArr.length; i < len; ++i) {
       this.menusArr[i].menuItems.forEach(function (item, pos) {
-        item.querySelector('a').addEventListener('click', function (ev) {
+        var link = item.querySelector('a');
+        if (!link) {
+          // eslint-disable-next-line no-console
+          console.error('no link found in item', item);
+          return;
+        }
+        link.addEventListener('click', function (ev) {
           var link = ev.target.closest('a'),
             submenu = link.getAttribute('data-submenu'),
             itemName = link.innerHTML,
